@@ -42,8 +42,15 @@ var Main = React.createClass({
 }});    
 
 var Server = React.createClass({
+	 getInitialState: function() {
+    	return {open: true };
+  	},
+
+  	onButtonClick: function(event) {
+  	  this.setState({open: !(this.state.open)});
+	},
 	
-	    sendCommandToServer: function(appName, action) {
+	sendCommandToServer: function(appName, action) {
 		var destUrl = this.props.rootUrl + '/actions/' + this.props.serverName + '/' + appName + '?action=' + action;
 		console.log('sending command ... ' + destUrl);
 		$.ajax({
@@ -59,6 +66,17 @@ var Server = React.createClass({
 	},
 
     render: function () {
+    	var buttonText = "show";
+    	if (this.state.open == true) {
+    		buttonText = "hide";
+    	}
+
+    	var displayStyle = "";
+    	if (!this.state.open) {
+    		displayStyle = "display-none"
+    	}
+
+
         var apps =  this.props.server.apps;
         if(apps){
             var appsToRender =  this.props.server.apps.map(function(app, index) {
@@ -70,8 +88,12 @@ var Server = React.createClass({
 
      return (
 	<div>
-      <h1>Server {this.props.serverName} </h1>
-	   {appsToRender}
+	      <h1 id="serverName">Server {this.props.serverName} </h1>
+	      <button className="btn btn-success btn-sm" onClick={ this.onButtonClick }>{buttonText}</button>
+
+	      <div id="apps" className={displayStyle}>
+		   	{appsToRender}
+		   </div>
 	 </div>
 	 )
 }}); 
