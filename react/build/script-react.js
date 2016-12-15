@@ -66,9 +66,9 @@ var Server = React.createClass({
 	},
 
     render: function () {
-    	var buttonText = "show";
+    	var buttonText = "+";
     	if (this.state.open == true) {
-    		buttonText = "hide";
+    		buttonText = "-";
     	}
 
     	var displayStyle = "";
@@ -88,8 +88,9 @@ var Server = React.createClass({
 
      return (
 	<div>
-	      <h1 id="serverName">Server {this.props.serverName} </h1>
+	      
 	      <button className="btn btn-success btn-sm" onClick={ this.onButtonClick }>{buttonText}</button>
+		  <h1 id="serverName">Server {this.props.serverName} </h1>
 
 	      <div id="apps" className={displayStyle}>
 		   	{appsToRender}
