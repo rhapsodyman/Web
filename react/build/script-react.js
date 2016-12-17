@@ -46,9 +46,17 @@ var Server = React.createClass({
     	return {open: true };
   	},
 
-  	onButtonClick: function(event) {
-  	  this.setState({open: !(this.state.open)});
+  	
+	
+	  onButtonClick: function(event) {
+	  this.setState(function(prevState) {
+		  return {
+			open: !prevState.open
+		  };
+		}); 
 	},
+	
+	
 	
 	sendCommandToServer: function(appName, action) {
 		var destUrl = this.props.rootUrl + '/actions/' + this.props.serverName + '/' + appName + '?action=' + action;
